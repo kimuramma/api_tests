@@ -3,10 +3,12 @@ from dotenv import load_dotenv, set_key
 import requests
 import pytest
 
-load_dotenv()
+ENV_PATH = os.path.join(os.path.dirname(__file__), '..', '.env')
+load_dotenv(dotenv_path=ENV_PATH)
 
 HOST = "https://fastcash-back.trafficwave.kz"
-ENV_PATH = '.env'
+
+
 
 @pytest.fixture(autouse=True, scope="session")
 def get_token():
@@ -26,5 +28,8 @@ def get_token():
     if token:
         # Записываем токен в файл .env
         set_key(ENV_PATH, "TOKEN", token)
+        print(f"TOKEN записан в .env: {token}")
+    else:
+        print("Токен не был получен.")
 
     print(response.status_code, response.json())
