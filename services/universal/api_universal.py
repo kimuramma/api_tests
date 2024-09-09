@@ -19,7 +19,7 @@ class UniversalAPI:
         )
         print(response.json())
         print('Запрос ОТП прошла успешно')
-        assert response.status_code == 200, response.json()
+        assert response.status_code == 200, f"Expected status 200, but got {response.status_code}"
 
     def validate_otp(self):
         response = requests.post(
