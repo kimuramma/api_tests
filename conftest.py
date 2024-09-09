@@ -12,15 +12,18 @@ HOST = "https://fastcash-back.trafficwave.kz"
 
 @pytest.fixture(autouse=True, scope="session")
 def get_token():
+    print(os.getenv('PASSWORD'))
+    print(os.getenv('USERNAME_FASTCASH'))
     response = requests.post(
         url=f"{HOST}/ffc-api-auth/",
         data={
 
             "password": f"{os.getenv('PASSWORD')}",
-            "username": f"{os.getenv('USERNAME')}"
+            "username": f"{os.getenv('USERNAME_FASTCASH')}"
 
         }
     )
+    print(response.status_code, response.json())
     assert response.status_code == 200
     print(response.status_code, response.json())
 
