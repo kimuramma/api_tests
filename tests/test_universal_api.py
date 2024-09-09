@@ -7,3 +7,4 @@ class TestUniversalAPI(BaseTest):
 
     def test_universal_api(self):
         self.universal_api.send_otp()
+        self.universal_api.validate_otp()
