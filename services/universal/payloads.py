@@ -1,10 +1,10 @@
 class Payloads:
     send_otp = {
-        "iin": "701225401572",
+        "iin": "820507402189",
         "mobile_phone": "+77066078118"
     }
     validate_otp = {
-        "iin": "701225401572",
+        "iin": "820507402189",
         "mobile_phone": "+77066078118",
         "code": "0000"
     }
@@ -35,3 +35,10 @@ class Payloads:
   },
   "product": "VILED_CREDIT"
 }
+    send_redirect_url = {
+  "success": True
+}
+    auth_for_frames = {
+        "username": "m.zhakeshov@globerce.capital",
+        "password": ",z`1m%Sngci$%E))))"
+    }

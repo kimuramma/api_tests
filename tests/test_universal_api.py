@@ -12,3 +12,10 @@ class TestUniversalAPI(BaseTest):
         uuid = self.universal_api.apply_lead()
         self.universal_api.get_scoring_result(uuid)
         self.universal_api.get_base_information(uuid)
+        self.universal_api.set_reference_id(uuid)
+        self.universal_api.send_redirect_url(uuid)
+
+    def test_frames_flow(self):
+        self.test_frames_flow()
+
+

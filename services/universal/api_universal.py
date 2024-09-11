@@ -93,3 +93,26 @@ class UniversalAPI:
         print(response.status_code, response.json())
         print('Базовая информация получена')
         assert  response.status_code == 200, response.json()
+
+    def set_reference_id(self, uuid: UUID):
+        set_reference_id = urljoin(self.endpoints.set_reference_id, str(uuid))
+        response = requests.put(
+            url=set_reference_id,
+            headers=self.headers.basic,
+            json=self.payloads.set_reference_id
+        )
+        print(response.status_code, response.json())
+        print('Продукт выбран')
+        assert response.status_code == 200, response.json()
+
+    def send_redirect_url(self, uuid: UUID):
+        send_redirect_url = urljoin(self.endpoints.send_redirect_url, str(uuid))
+        response = requests.post(
+            url=send_redirect_url,
+            headers=self.headers.basic,
+            json=self.payloads.send_redirect_url
+        )
+        print(response.status_code, response.json())
+        print('Запрос на отправку СМС со ссылкой отправлен')
+        assert response.status_code == 200, response.json()
+
