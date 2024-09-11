@@ -1,3 +1,7 @@
+from time import sleep
+from urllib.parse import urljoin
+from uuid import UUID
+
 import requests
 from dotenv import set_key
 
@@ -43,7 +47,7 @@ class UniversalAPI:
         print(response.json())
         assert response.status_code == 200, response.json()
 
-    def apply_lead(self):
+    def apply_lead(self) -> UUID:
         response = requests.post(
             url=self.endpoints.apply_lead,
             headers=self.headers.basic,
@@ -62,12 +66,20 @@ class UniversalAPI:
             print("UUID не был получен.")
 
         print(response.status_code, response.json())
+        return uuid
 
-    def get_scoring_result(self):
-        response = requests.get(
-            url=self.endpoints.get_scoring_result,
-            headers=self.headers.basic
-        )
+    def get_scoring_result(self, uuid: UUID):
+        get_scoring_result = urljoin(self.endpoints.get_scoring_result, str(uuid))
+        for i in range(10):
+            response = requests.get(
+                url=get_scoring_result,
+                headers=self.headers.basic
+            )
+            print(response.status_code, response.text)
+            if response.status_code == 204:
+                sleep(5)
+            else:
+                break
         print(response.status_code, response.json())
         print('Результаты скоринга получены')
         assert response.status_code == 200, response.json()
