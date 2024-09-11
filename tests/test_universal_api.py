@@ -11,3 +11,4 @@ class TestUniversalAPI(BaseTest):
         #self.universal_api.get_model2()
         uuid = self.universal_api.apply_lead()
         self.universal_api.get_scoring_result(uuid)
+        self.universal_api.get_base_information(uuid)

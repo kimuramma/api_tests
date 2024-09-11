@@ -12,3 +12,4 @@ class Endpoints:
     get_model2 = lambda self, iin: f"{HOST}ffc-api-public/universal/datalab/model2/{iin}"
     apply_lead = f"{HOST}/ffc-api-public/universal/apply/apply-lead"
     get_scoring_result = f"{HOST}/ffc-api-public/universal/general/scoring-result/"
+    get_base_information = f"{HOST}/ffc-api-public/universal/general/base-information/"

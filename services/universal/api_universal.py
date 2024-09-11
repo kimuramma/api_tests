@@ -83,3 +83,13 @@ class UniversalAPI:
         print(response.status_code, response.json())
         print('Результаты скоринга получены')
         assert response.status_code == 200, response.json()
+
+    def get_base_information(self, uuid: UUID):
+        get_base_information = urljoin(self.endpoints.get_base_information, str(uuid))
+        response = requests.get(
+            url=get_base_information,
+            headers=self.headers.basic
+        )
+        print(response.status_code, response.json())
+        print('Базовая информация получена')
+        assert  response.status_code == 200, response.json()

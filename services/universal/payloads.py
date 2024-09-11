@@ -26,3 +26,12 @@ class Payloads:
         "delivery_address": ""
     }
 }
+
+    set_reference_id = {
+  "reference_id": "TIGER01",
+  "credit_params": {
+    "period": 6,
+    "principal": 10000
+  },
+  "product": "VILED_CREDIT"
+}
