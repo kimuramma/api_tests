@@ -10,6 +10,7 @@ from example import response
 from services.universal.endpoints import Endpoints
 from services.universal.payloads import Payloads
 from config.headers import Headers
+from services.universal.models.universal_api_models import GetScoringResultModel
 
 
 class UniversalAPI:
@@ -83,6 +84,8 @@ class UniversalAPI:
         print(response.status_code, response.json())
         print('Результаты скоринга получены')
         assert response.status_code == 200, response.json()
+        model = GetScoringResultModel(**response.json())
+        return model
 
     def get_base_information(self, uuid: UUID):
         get_base_information = urljoin(self.endpoints.get_base_information, str(uuid))
