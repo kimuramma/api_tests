@@ -10,6 +10,7 @@ from example import response
 from services.universal.endpoints import Endpoints
 from services.universal.payloads import Payloads
 from config.headers import Headers
+from services.universal.models.universal_api_models import AuthModel
 
 
 class UniversalFrames:
@@ -26,3 +27,16 @@ class UniversalFrames:
         print(response.status_code, response.json())
         print('Токен получен')
         assert response.status_code == 200, response.json()
+
+        model = AuthModel(**response.json())
+        return model
+
+    def get_frames_api(self, uuid: UUID):
+        frames_api_url = urljoin(self.endpoints.frames_api, str(uuid))
+        print(frames_api_url)
+        response = requests.get(
+            url=frames_api_url,
+            headers=self.headers.basic
+        )
+        print(response.status_code, response.json())
+        print('Информация для фреймов получена')

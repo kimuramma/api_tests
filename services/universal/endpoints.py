@@ -16,3 +16,4 @@ class Endpoints:
     set_reference_id = f"{HOST}/ffc-api-public/universal/general/set-reference-id/"
     send_redirect_url = f"{HOST}/ffc-api-public/universal/general/send-redirect-url/"
     auth = f"{HOST}/ffc-api-auth/"
+    frames_api = f"{HOST}/ru/frames-api/"
