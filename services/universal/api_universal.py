@@ -2,6 +2,7 @@ from time import sleep
 from urllib.parse import urljoin
 from uuid import UUID
 
+import allure
 import requests
 from dotenv import set_key
 
@@ -11,14 +12,15 @@ from services.universal.endpoints import Endpoints
 from services.universal.payloads import Payloads
 from config.headers import Headers
 from services.universal.models.universal_api_models import GetScoringResultModel
+from utils.helper import Helper
 
 
-class UniversalAPI:
+class UniversalAPI(Helper):
     def __init__(self):
         self.payloads = Payloads()
         self.endpoints = Endpoints()
         self.headers = Headers()
-
+    @allure.step("Send OTP")
     def send_otp(self):
         response = requests.post(
             url=self.endpoints.send_otp,
@@ -28,6 +30,7 @@ class UniversalAPI:
         print(response.json())
         print('Запрос ОТП прошла успешно')
         assert response.status_code == 200, f"Expected status 200, but got {response.status_code}"
+        self.attach_response(response.json())
 
     def validate_otp(self):
         response = requests.post(

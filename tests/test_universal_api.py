@@ -1,10 +1,16 @@
 import os
 
+import allure
+import pytest
+
 from config.base_test import BaseTest
 
-
+@allure.epic("Universal API Flow")
+@allure.feature("Universal API")
 class TestUniversalAPI(BaseTest):
     uuid = None
+    @pytest.mark.regression
+    @allure.title("Universal API end2end")
     def test_universal_api(self):
         self.universal_api.send_otp()
         self.universal_api.validate_otp()

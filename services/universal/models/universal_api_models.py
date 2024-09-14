@@ -24,11 +24,14 @@ class ApprovedParams(BaseModel):
     interest_rate: float
     effective_rate: float
     monthly_payment: float
+
+
 def fields_are_not_empty(cls, value):
     if value == "" or value is None:
         return ValueError("Пустое поле")
     else:
         return value
+
 
 class GetScoringResultModel(BaseModel):
     result: str
