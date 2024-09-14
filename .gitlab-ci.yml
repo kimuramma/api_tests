@@ -3,7 +3,7 @@ stages:
     - report
 
 variables:
-    STAGE: prod
+    STAGE: preprod
 
 services:
     - docker:24.0.5-dind
@@ -14,7 +14,7 @@ run_tests:
     # Раскомметировать before_script после первого тестового прогона
 #    before_script:
 #      - apk add curl jq
-#      - ARTIFACTS_CHECK_URL="https://$CI_SERVER_HOST/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_DEFAULT_BRANCH/download?job=pages&private_token=$PRIVATE_TOKEN"
+#      - ARTIFACTS_CHECK_URL="https://$CI_SERVER_HOST/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_DEFAULT_BRANCH/download?job=pages&private_token=$UNIVERSAL_API_TOKEN"
 #      - curl -k --location --output artifacts.zip $ARTIFACTS_CHECK_URL
 #      - unzip artifacts.zip
 #      - chmod -R 777 public
@@ -27,7 +27,7 @@ run_tests:
         paths:
             - allure-report
         when: on_success
-        expire_in: 10 days
+        expire_in: 1 days
 
 pages:
   stage: report
