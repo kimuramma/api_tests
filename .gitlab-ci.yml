@@ -6,11 +6,11 @@ variables:
     STAGE: preprod
 
 services:
-    - docker:24.0.5-dind
+    - docker:27.1.1-dind
 
 run_tests:
     stage: tests
-    image: docker:24.0.5
+    image: docker:27.1.1
     # Раскомметировать before_script после первого тестового прогона
 #    before_script:
 #      - apk add curl jq
