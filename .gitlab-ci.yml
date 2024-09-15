@@ -25,7 +25,7 @@ run_tests:
         - docker compose up report
     artifacts:
         paths:
-            - allure-report
+            - allure-results
         when: on_success
         expire_in: 10 days
 
@@ -35,7 +35,7 @@ pages:
     - run_tests
   script:
     - mkdir public
-    - cp -r allure-report/* public
+    - cp -r allure-results/* public
   artifacts:
     when: on_success
     expire_in: never
