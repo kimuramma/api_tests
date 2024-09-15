@@ -3,14 +3,14 @@ stages:
     - report
 
 variables:
-    STAGE: preprod
+    STAGE: prod
 
 services:
-    - docker:26.1.1-dind
+    - docker:24.0.5-dind
 
 run_tests:
     stage: tests
-    image: docker:26.1.1
+    image: docker:24.0.5
     # Раскомметировать before_script после первого тестового прогона
 #    before_script:
 #      - apk add curl jq
@@ -27,7 +27,7 @@ run_tests:
         paths:
             - allure-report
         when: on_success
-        expire_in: 1 days
+        expire_in: 10 days
 
 pages:
   stage: report
