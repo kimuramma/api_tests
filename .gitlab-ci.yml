@@ -3,23 +3,31 @@ stages:
     - report
 
 variables:
-    STAGE: preprod
+    STAGE: prod
 
 services:
-    - docker:24.0.5-dind
+    - docker:27.1.1-dind
 
 run_tests:
     stage: tests
-    image: docker:24.0.5
+    image: docker:27.1.1
+    # Раскомметировать before_script после первого тестового прогона
+#    before_script:
+#      - apk add curl jq
+#      - ARTIFACTS_CHECK_URL="https://$CI_SERVER_HOST/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_DEFAULT_BRANCH/download?job=pages&private_token=$PRIVATE_TOKEN"
+#      - curl -k --location --output artifacts.zip $ARTIFACTS_CHECK_URL
+#      - unzip artifacts.zip
+#      - chmod -R 777 public
+#      - mkdir -p allure-results && cp -r public/history allure-results
     script:
-        # Запуск тестов с генерацией результатов Allure
         - docker compose up api-tests || true
-        - docker run -v $(pwd)/allure-results:/allure-results -v $(pwd)/allure-report:/allure-report allure-framework/allure-cli:2.13.8 generate /allure-results --clean -o /allure-report
+    after_script:
+        - docker compose up report
     artifacts:
         paths:
             - allure-report
-        when: always  # Убедись, что артефакты загружаются даже при ошибках
-        expire_in: 1 day
+        when: on_success
+        expire_in: 1 days
 
 pages:
   stage: report
@@ -27,15 +35,9 @@ pages:
     - run_tests
   script:
     - mkdir public
-    # Проверка, существует ли директория allure-report
-    - |
-      if [ -d "allure-report" ]; then
-        cp -r allure-report/* public
-      else
-        echo "Allure report not found!" && exit 1
-      fi
+    - cp -r allure-report/* public
   artifacts:
-    when: always
+    when: on_success
     expire_in: never
     paths:
       - public
