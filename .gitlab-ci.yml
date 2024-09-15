@@ -27,7 +27,7 @@ run_tests:
         paths:
             - allure-report
         when: on_success
-        expire_in: 1 days
+        expire_in: 10 days
 
 pages:
   stage: report
