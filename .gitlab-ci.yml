@@ -11,18 +11,15 @@ services:
 run_tests:
     stage: tests
     image: docker:24.0.5
-    
     script:
+        # Запуск тестов с генерацией результатов Allure
         - docker compose up api-tests || true
-        - pytest --alluredir=allure-results
-        - allure generate allure-results --clean -o allure-report
-    after_script:
-        - docker compose up report
+        - docker run -v $(pwd)/allure-results:/allure-results -v $(pwd)/allure-report:/allure-report allure-framework/allure-cli:2.13.8 generate /allure-results --clean -o /allure-report
     artifacts:
         paths:
             - allure-report
-        when: on_success
-        expire_in: 1 days
+        when: always  # Убедись, что артефакты загружаются даже при ошибках
+        expire_in: 1 day
 
 pages:
   stage: report
@@ -30,9 +27,15 @@ pages:
     - run_tests
   script:
     - mkdir public
-    - cp -r allure-report/* public
+    # Проверка, существует ли директория allure-report
+    - |
+      if [ -d "allure-report" ]; then
+        cp -r allure-report/* public
+      else
+        echo "Allure report not found!" && exit 1
+      fi
   artifacts:
-    when: on_success
+    when: always
     expire_in: never
     paths:
       - public
