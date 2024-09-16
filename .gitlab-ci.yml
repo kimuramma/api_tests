@@ -19,4 +19,4 @@ run_tests:
   script:
     - pytest -v --alluredir=allure-results
   after_script:
-    - allure generate -c allure-result -o allure-report
+    - allure generate -c allure-results -o allure-report
