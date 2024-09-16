@@ -1,3 +1,4 @@
+image: node:16
 stages:
   - test
   - report
@@ -33,7 +34,8 @@ report:
     - wget -qO allure-2.29.0.zip https://github.com/allure-framework/allure2/releases/download/2.29.0/allure-2.29.0.zip
     - unzip allure-2.29.0.zip -d /opt/allure
     - pip3 install allure-combine
-    - /opt/allure/allure-2.29.0/bin/allure generate allure-results -o allure-report
+    - /opt/allure/allure-2.29.0/bin/allure 
+    - generate allure-results -o allure-report
     - allure-combine --dest ./report allure-report --auto-create-folders
   artifacts:
     paths:
