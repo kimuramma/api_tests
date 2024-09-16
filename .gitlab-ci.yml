@@ -2,29 +2,20 @@ stages:
   - test
   - report
 variables:
-  POETRY_HTTP_BASIC_GLOBERCE_USERNAME: $PYPI_USERNAME
-  POETRY_HTTP_BASIC_GLOBERCE_PASSWORD: $PYPI_PASSWORD
-  CLIENT_SECRET: $CLIENT_SECRET
-  OPERATE_LOGIN: $OPERATE_LOGIN
-  OPERATE_PASSWORD: $OPERATE_PASSWORD
-
+  STAGE: preprod
+services:
+    - docker:24.0.5-dind
 test:
   stage: test
-  image: python:3.11
+  image: docker:24.0.5
   tags:
     - docker
-  before_script:
-    - curl -sSL https://install.python-poetry.org | python3 -
-    - export PATH="$HOME/.local/bin:$PATH"
-    - poetry config http-basic.globerce $PYPI_USERNAME $PYPI_PASSWORD
-    - poetry install --no-root
-
   script:
-    - poetry run pytest -sv tests/blocks/test_full_except_aml.py::TestFullExceptAML::test_full_except_aml_110540004290 --alluredir=allure-results
+    - poetry run pytest -sv --alluredir=allure-results
   artifacts:
     paths:
       - allure-results
-  when: manual
+  when: on_success
 
 report:
   stage: report
