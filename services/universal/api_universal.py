@@ -32,6 +32,7 @@ class UniversalAPI(Helper):
         assert response.status_code == 200, f"Expected status 200, but got {response.status_code}"
         self.attach_response(response.json())
 
+    @allure.step("Validate OTP")
     def validate_otp(self):
         response = requests.post(
             url=self.endpoints.validate_otp,
@@ -42,7 +43,9 @@ class UniversalAPI(Helper):
         print('Валидация ОТП прошла успешно')
 
         assert response.status_code == 200, response.json()
+        self.attach_response(response.json())
 
+    @allure.step("Get model2")
     def get_model2(self):
         response = requests.get(
             url=self.endpoints.get_model2,
@@ -50,7 +53,9 @@ class UniversalAPI(Helper):
         )
         print(response.json())
         assert response.status_code == 200, response.json()
+        self.attach_response(response.json())
 
+    @allure.step("Apply lead")
     def apply_lead(self) -> UUID:
         response = requests.post(
             url=self.endpoints.apply_lead,
@@ -60,6 +65,7 @@ class UniversalAPI(Helper):
         print(response.json())
         print('Заявка создалась успешно')
         assert response.status_code == 202, response.json()
+        self.attach_response(response.json())
 
         uuid = response.json().get('uuid')
         if uuid:
