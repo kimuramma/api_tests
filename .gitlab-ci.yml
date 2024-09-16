@@ -4,6 +4,8 @@ stages:
 
 run_tests:
   stage: test
+  tags:
+    - "dev-2"
   image: python
   artifacts:
         when: always
