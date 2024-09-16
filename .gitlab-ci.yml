@@ -19,25 +19,18 @@ test:
       - allure-results
   when: on_success
 
-report:
+pages:
   stage: report
-  image: openjdk:11
   tags:
-    - docker
-  needs:
-    - test
-  dependencies:
-    - test
+    - "dev-2"
   script:
-    - apt-get update && apt-get install -y unzip
-    - apt-get -y install python3-pip
-    - wget -qO allure-2.29.0.zip https://github.com/allure-framework/allure2/releases/download/2.29.0/allure-2.29.0.zip
-    - unzip allure-2.29.0.zip -d /opt/allure
-    - pip3 install allure-combine
-    - /opt/allure/allure-2.29.0/bin/allure 
-    - generate allure-results -o allure-report
-    - allure-combine --dest ./report allure-report --auto-create-folders
+    - apt-get update && apt-get install -y wget unzip openjdk-11-jdk
+    - wget https://github.com/allure-framework/allure2/releases/download/2.20.0/allure-2.20.0.zip
+    - unzip allure-2.20.0.zip -d /opt/allure
+    - ln -s /opt/allure/allure-2.20.0/bin/allure /usr/local/bin/allure
+    - allure generate allure-results --clean -o public
   artifacts:
     paths:
-      - report
-    expire_in: 1 hour
+      - public
+  only:
+    - main
