@@ -1,44 +1,49 @@
-image: node:16
 stages:
-    - tests
-    - report
-
+  - test
+  - report
 variables:
-    STAGE: preprod
+  POETRY_HTTP_BASIC_GLOBERCE_USERNAME: $PYPI_USERNAME
+  POETRY_HTTP_BASIC_GLOBERCE_PASSWORD: $PYPI_PASSWORD
+  CLIENT_SECRET: $CLIENT_SECRET
+  OPERATE_LOGIN: $OPERATE_LOGIN
+  OPERATE_PASSWORD: $OPERATE_PASSWORD
 
-services:
-    - docker:27.1.1-dind
+test:
+  stage: test
+  image: python:3.11
+  tags:
+    - docker
+  before_script:
+    - curl -sSL https://install.python-poetry.org | python3 -
+    - export PATH="$HOME/.local/bin:$PATH"
+    - poetry config http-basic.globerce $PYPI_USERNAME $PYPI_PASSWORD
+    - poetry install --no-root
 
-run_tests:
-    stage: tests
-    image: docker:27.1.1
-    # Раскомметировать before_script после первого тестового прогона
-#    before_script:
-#      - apk add curl jq
-#      - ARTIFACTS_CHECK_URL="https://$CI_SERVER_HOST/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_DEFAULT_BRANCH/download?job=pages&private_token=$PRIVATE_TOKEN"
-#      - curl -k --location --output artifacts.zip $ARTIFACTS_CHECK_URL
-#      - unzip artifacts.zip
-#      - chmod -R 777 public
-#      - mkdir -p allure-results && cp -r public/history allure-results
-    script:
-        - docker compose up api-tests || true
-    after_script:
-        - docker compose up report
-    artifacts:
-        paths:
-            - allure-report
-        when: on_success
-        expire_in: 10 days
-
-pages:
-  stage: report
-  needs:
-    - run_tests
   script:
-    - mkdir public
-    - cp -r allure-report/* public
+    - poetry run pytest -sv tests/blocks/test_full_except_aml.py::TestFullExceptAML::test_full_except_aml_110540004290 --alluredir=allure-results
   artifacts:
-    when: on_success
-    expire_in: never
     paths:
-      - public
+      - allure-results
+  when: manual
+
+report:
+  stage: report
+  image: openjdk:11
+  tags:
+    - docker
+  needs:
+    - test
+  dependencies:
+    - test
+  script:
+    - apt-get update && apt-get install -y unzip
+    - apt-get -y install python3-pip
+    - wget -qO allure-2.29.0.zip https://github.com/allure-framework/allure2/releases/download/2.29.0/allure-2.29.0.zip
+    - unzip allure-2.29.0.zip -d /opt/allure
+    - pip3 install allure-combine
+    - /opt/allure/allure-2.29.0/bin/allure generate allure-results -o allure-report
+    - allure-combine --dest ./report allure-report --auto-create-folders
+  artifacts:
+    paths:
+      - report
+    expire_in: 1 hour
