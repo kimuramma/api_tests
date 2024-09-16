@@ -3,6 +3,6 @@ stages:
 
 run_tests:
   stage: test
-  image: docker
+  image: python
   script:
     pytest -sv
