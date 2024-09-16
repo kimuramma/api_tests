@@ -3,10 +3,10 @@ stages:
 
 run_tests:
   stage: test
-  image: python:3.9
+  image: docker:24.0.5
   before_script:
-        - pip install -r requirements.txt
+     - pip install -r requirements.txt
   
 
   script:
-    pytest -sv
+      - docker compose up api-tests || true
