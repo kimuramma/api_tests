@@ -10,7 +10,7 @@ test:
   image: docker:24.0.5
   tags:
     - docker
-      before_script:
+  before_script:
       - apk add curl jq
       - ARTIFACTS_CHECK_URL="https://$CI_SERVER_HOST/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_DEFAULT_BRANCH/download?job=pages&private_token=$UNIVERSAL_API_TOKEN"
       - curl -k --location --output artifacts.zip $ARTIFACTS_CHECK_URL
