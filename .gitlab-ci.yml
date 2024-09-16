@@ -1,35 +1,8 @@
-image: node:16
 stages:
   - test
-  - report
 
-services:
-    - docker:24.0.5-dind
-test:
+run_tests:
   stage: test
-  image: docker:24.0.5
-  tags:
-    - "dev-2"
- 
+  image: docker
   script:
-    - docker compose up api-tests || true
-  artifacts:
-    paths:
-      - allure-results
-  when: on_success
-
-pages:
-  stage: report
-  tags:
-    - "dev-2"
-  script:
-    - apt-get update && apt-get install -y wget unzip openjdk-11-jdk
-    - wget https://github.com/allure-framework/allure2/releases/download/2.20.0/allure-2.20.0.zip
-    - unzip allure-2.20.0.zip -d /opt/allure
-    - ln -s /opt/allure/allure-2.20.0/bin/allure /usr/local/bin/allure
-    - allure generate allure-results --clean -o public
-  artifacts:
-    paths:
-      - public
-  only:
-    - main
+    pytest -sv
