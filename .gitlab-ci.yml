@@ -1,6 +1,7 @@
 image: node:16
 stages:
   - test
+  - report
 
 run_tests:
   stage: test
@@ -20,3 +21,16 @@ run_tests:
     - pytest -v --alluredir=allure-results
   after_script:
     - allure generate -c allure-results -o allure-report
+
+report:
+  stage: report
+  needs:
+    - run_tests
+  script: 
+    - mkdir public
+    - cp -r allure_report/* public
+  artifacts:
+        when: on_success
+        expire_in: never
+        paths:
+            - public
