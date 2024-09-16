@@ -3,10 +3,8 @@ stages:
 
 run_tests:
   stage: test
-  image: python:3.9-slim  # Измените на образ с Python и pip
-  services:
-    - docker:24.0.5-dind  # Docker-in-Docker для выполнения docker команд
+  image: python
   before_script:
-    - pip install -r requirements.txt  # Установка зависимостей Python
+    - pip install -r requirements.txt  
   script:
-    - docker compose up api-tests || true  # Запуск Docker контейнеров
+    - pytest -v
