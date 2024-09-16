@@ -2,15 +2,14 @@ image: node:16
 stages:
   - test
   - report
-variables:
-  STAGE: preprod
+
 services:
     - docker:24.0.5-dind
 test:
   stage: test
   image: docker:24.0.5
   tags:
-    - docker
+    - "dev-2"
  
   script:
     - docker compose up api-tests || true
