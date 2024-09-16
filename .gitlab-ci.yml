@@ -10,11 +10,7 @@ test:
   image: docker:24.0.5
   tags:
     - docker
-  before_script:
-      - apk add curl jq
-      - unzip artifacts.zip
-      - chmod -R 777 public
-      - mkdir -p allure-results && cp -r public/history allure-results
+ 
   script:
     - docker compose up api-tests || true
   artifacts:
