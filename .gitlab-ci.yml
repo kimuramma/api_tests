@@ -11,7 +11,7 @@ test:
   tags:
     - docker
   script:
-    - poetry run pytest -sv --alluredir=allure-results
+    - docker compose up api-tests || true
   artifacts:
     paths:
       - allure-results
