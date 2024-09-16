@@ -6,9 +6,6 @@ run_tests:
   image: python:3.9-slim  # Измените на образ с Python и pip
   services:
     - docker:24.0.5-dind  # Docker-in-Docker для выполнения docker команд
-  variables:
-    DOCKER_HOST: "tcp://docker:2375"
-    DOCKER_TLS_CERTDIR: ""
   before_script:
     - pip install -r requirements.txt  # Установка зависимостей Python
   script:
