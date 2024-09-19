@@ -26,7 +26,8 @@ class UniversalFrames:
         )
         print(response.status_code, response.json())
         print('Токен получен')
-        assert response.status_code == 200, response.json()
+        assert response.status_code == 200, f"Expected status 200, but got {response.status_code}"
+        response.json()
 
         model = AuthModel(**response.json())
         return model
@@ -40,3 +41,86 @@ class UniversalFrames:
         )
         print(response.status_code, response.json())
         print('Информация для фреймов получена')
+        assert response.status_code == 200, f"Expected status 200, but got {response.status_code}"
+        response.json()
+
+    def get_frames_fraud(self, uuid: UUID):
+        fraud_path = "fraud"
+        frames_fraud_url = self.endpoints.frames_urls_with_path(uuid, fraud_path)
+        print(frames_fraud_url)
+        response = requests.get(
+            url=frames_fraud_url,
+            headers=self.headers.basic
+        )
+        print(response.status_code, response.json())
+        print('Информация для фреймов получена')
+        assert response.status_code == 200, f"Expected status 200, but got {response.status_code}"
+        response.json()
+
+    def post_frames_fraud(self, uuid: UUID):
+        fraud_path = "fraud"
+        frames_fraud_url = self.endpoints.frames_urls_with_path(uuid, fraud_path)
+        print(frames_fraud_url)
+        response = requests.post(
+            url=frames_fraud_url,
+            headers=self.headers.basic,
+            json=self.payloads.post_fraud
+        )
+        print(response.status_code, response.json())
+        print('Информация для фреймов получена')
+        assert response.status_code == 200, f"Expected status 200, but got {response.status_code}"
+        response.json()
+
+    def get_biometry(self, uuid: UUID):
+        biometry_path = "biometry"
+        frames_biometry_url = self.endpoints.frames_urls_with_path(uuid, biometry_path)
+        print(frames_biometry_url)
+        response = requests.get(
+            url=frames_biometry_url,
+            headers=self.headers.basic
+        )
+        print(response.status_code, response.json())
+        print('Данные для биометрий получены')
+        assert response.status_code == 200, f"Expected status 200, but got {response.status_code}"
+        response.json()
+
+    def post_biometry(self, uuid: UUID):
+        biometry_path = "biometry"
+        frames_biometry_url = self.endpoints.frames_urls_with_path(uuid, biometry_path)
+        print(frames_biometry_url)
+        response = requests.post(
+            url=frames_biometry_url,
+            headers=self.headers.basic,
+            json=self.payloads.mock_biometry
+        )
+        print(response.status_code, response.json())
+        print('Данные для биометрий получены')
+        assert response.status_code == 200, f"Expected status 200, but got {response.status_code}"
+        response.json()
+
+    def get_signature(self, uuid: UUID):
+        signature_path = "signature"
+        frames_signature_url = self.endpoints.frames_urls_with_path(uuid, signature_path)
+        print(frames_signature_url)
+        response = requests.get(
+            url=frames_signature_url,
+            headers=self.headers.basic
+        )
+        print(response.status_code, response.json())
+        print('Данные для биометрий получены')
+        assert response.status_code == 200, f"Expected status 200, but got {response.status_code}"
+        response.json()
+
+    def post_signature(self, uuid: UUID):
+        signature_path = "signature"
+        frames_signature_url = self.endpoints.frames_urls_with_path(uuid, signature_path)
+        print(frames_signature_url)
+        response = requests.post(
+            url=frames_signature_url,
+            headers=self.headers.basic,
+            json=self.payloads.signature
+        )
+        print(response.status_code, response.json())
+        print('Заявка подписана')
+        assert response.status_code == 200, f"Expected status 200, but got {response.status_code}"
+        response.json()
