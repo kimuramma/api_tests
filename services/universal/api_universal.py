@@ -42,7 +42,8 @@ class UniversalAPI(Helper):
         print(response.json())
         print('Валидация ОТП прошла успешно')
 
-        assert response.status_code == 200, response.json()
+        assert response.status_code == 200, f"Expected status 200, but got {response.status_code}"
+        response.json()
         self.attach_response(response.json())
 
     @allure.step("Get model2")
@@ -52,7 +53,8 @@ class UniversalAPI(Helper):
             headers=self.headers.basic
         )
         print(response.json())
-        assert response.status_code == 200, response.json()
+        assert response.status_code == 200, f"Expected status 200, but got {response.status_code}"
+        response.json()
         self.attach_response(response.json())
 
     @allure.step("Apply lead")
@@ -64,7 +66,8 @@ class UniversalAPI(Helper):
         )
         print(response.json())
         print('Заявка создалась успешно')
-        assert response.status_code == 202, response.json()
+        assert response.status_code == 202, f"Expected status 202, but got {response.status_code}"
+        response.json()
         self.attach_response(response.json())
 
         uuid = response.json().get('uuid')
@@ -92,7 +95,8 @@ class UniversalAPI(Helper):
                 break
         print(response.status_code, response.json())
         print('Результаты скоринга получены')
-        assert response.status_code == 200, response.json()
+        assert response.status_code == 200, f"Expected status 200, but got {response.status_code}"
+        response.json()
         model = GetScoringResultModel(**response.json())
         return model
 
@@ -104,7 +108,8 @@ class UniversalAPI(Helper):
         )
         print(response.status_code, response.json())
         print('Базовая информация получена')
-        assert  response.status_code == 200, response.json()
+        assert response.status_code == 200, f"Expected status 200, but got {response.status_code}"
+        response.json()
 
     def set_reference_id(self, uuid: UUID):
         set_reference_id = urljoin(self.endpoints.set_reference_id, str(uuid))
@@ -115,7 +120,8 @@ class UniversalAPI(Helper):
         )
         print(response.status_code, response.json())
         print('Продукт выбран')
-        assert response.status_code == 200, response.json()
+        assert response.status_code == 200, f"Expected status 200, but got {response.status_code}"
+        response.json()
 
     def send_redirect_url(self, uuid: UUID):
         send_redirect_url = urljoin(self.endpoints.send_redirect_url, str(uuid))
@@ -126,5 +132,6 @@ class UniversalAPI(Helper):
         )
         print(response.status_code, response.json())
         print('Запрос на отправку СМС со ссылкой отправлен')
-        assert response.status_code == 200, response.json()
+        assert response.status_code == 200, f"Expected status 200, but got {response.status_code}"
+        response.json()
 
