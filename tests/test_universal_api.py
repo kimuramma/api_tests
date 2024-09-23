@@ -26,3 +26,5 @@ class TestUniversalAPI(BaseTest):
         self.universal_frames.post_frames_fraud(self.uuid)
         self.universal_frames.get_biometry(self.uuid)
         self.universal_frames.post_biometry(self.uuid)
+        self.universal_frames.get_signature(self.uuid)
+        self.universal_frames.post_signature(self.uuid)
