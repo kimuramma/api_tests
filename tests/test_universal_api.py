@@ -28,3 +28,9 @@ class TestUniversalAPI(BaseTest):
         self.universal_frames.post_biometry(self.uuid)
         self.universal_frames.get_signature(self.uuid)
         self.universal_frames.post_signature(self.uuid)
+
+class TestUniversalAPiAuth(BaseTest):
+    def test_universal_api_auth(self):
+        self.universal_api.auth()
+        self.universal_api.auth_with_invalid_username()
+        self.universal_api.auth_with_invalid_password()

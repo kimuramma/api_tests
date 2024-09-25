@@ -13,6 +13,8 @@ from services.universal.payloads import Payloads
 from config.headers import Headers
 from services.universal.models.universal_api_models import GetScoringResultModel
 from utils.helper import Helper
+from services.universal.models.universal_api_models import AuthModel
+from services.universal.models.universal_api_models import AuthWrongCredsModel
 
 
 class UniversalAPI(Helper):
@@ -135,3 +137,41 @@ class UniversalAPI(Helper):
         assert response.status_code == 200, f"Expected status 200, but got {response.status_code}"
         response.json()
 
+    def auth(self):
+        response = requests.post(
+            url=self.endpoints.auth,
+            json=self.payloads.auth_for_frames
+        )
+        print(response.status_code, response.json())
+        print('Токен получен')
+        assert response.status_code == 200, f"Expected status 200, but got {response.status_code}"
+        response.json()
+
+        model = AuthModel(**response.json())
+        return model
+
+    def auth_with_invalid_username(self):
+        response = requests.post(
+            url=self.endpoints.auth,
+            json=self.payloads.auth_invalid_username
+        )
+        print(response.status_code, response.json())
+        print('Авторизация с невалидным логином не пройдена')
+        assert response.status_code == 401, f"Expected status 401, but got {response.status_code}"
+        response.json()
+
+        model = AuthWrongCredsModel(**response.json())
+        return model
+
+    def auth_with_invalid_password(self):
+        response = requests.post(
+            url=self.endpoints.auth,
+            json=self.payloads.auth_invalid_password
+        )
+        print(response.status_code, response.json())
+        print('Авторизация с невалидным паролем не пройдена')
+        assert response.status_code == 401, f"Expected status 401, but got {response.status_code}"
+        response.json()
+
+        model = AuthWrongCredsModel(**response.json())
+        return model

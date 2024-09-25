@@ -1,15 +1,15 @@
 class Payloads:
     send_otp = {
-        "iin": "820507402189",
+        "iin": "860720400089",
         "mobile_phone": "+77066078118"
     }
     validate_otp = {
-        "iin": "820507402189",
+        "iin": "860720400089",
         "mobile_phone": "+77066078118",
         "code": "0000"
     }
     apply_lead = {
-        "iin": "820507402189",
+        "iin": "860720400089",
         "mobile_phone": "+77066078118",
         "product": "VILED_CREDIT",
         "partner": "VILED",
@@ -41,6 +41,27 @@ class Payloads:
     auth_for_frames = {
         "username": "m.zhakeshov@globerce.capital",
         "password": ",z`1m%Sngci$%E))))"
+    }
+
+    auth_invalid_username = {
+        "username": "m.zhakeshov@globerce.capita",
+        "password": ",z`1m%Sngci$%E))))"
+    }
+    auth_invalid_password = {
+        "username": "m.zhakeshov@globerce.capital",
+        "password": "z`1m%Sngci$%E))))"
+    }
+
+    fraud_payload = {
+        "fraud": "true",
+        "approval_extra_move": "0",
+        "agreement_extra_move": "true",
+        "extra_move_type": "NO_EXTRA_MOVE"
+    }
+    mock_biometry = {
+
+        "mock_biometry": True
+
     }
 
     post_fraud = {
