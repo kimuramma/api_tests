@@ -41,6 +41,56 @@ class UniversalFrames:
         )
         print(response.status_code, response.json())
         print('Информация для фреймов получена')
+
+    def get_frames_fraud(self, uuid: UUID):
+        self.endpoints.set_uuid(uuid=str(uuid))
+        frames_fraud = self.endpoints.get_frames_fraud()
+
+        print(frames_fraud)
+        response = requests.get(
+            url=frames_fraud,
+            headers=self.headers.basic
+        )
+        print(response.status_code, response.json())
+        print('Get fraud is passed')
+
+    def post_frames_fraud(self, uuid: UUID):
+        self.endpoints.set_uuid(uuid=str(uuid))
+        frames_fraud = self.endpoints.get_frames_fraud()
+
+        print(frames_fraud)
+        response = requests.post(
+            url=frames_fraud,
+            headers=self.headers.basic,
+            json=self.payloads.fraud_payload
+        )
+        print(response.status_code, response.json())
+        print('POST fraud is passed')
+
+    def get_biometry(self, uuid: UUID):
+        self.endpoints.set_uuid(uuid=str(uuid))
+        frames_biometry = self.endpoints.get_frames_fraud()[1]
+
+        print(frames_biometry)
+        response = requests.get(
+            url=frames_biometry,
+            headers=self.headers.basic,
+        )
+        print(response.status_code, response.json())
+        print('GET biometry is passed')
+
+    def post_biometry(self, uuid: UUID):
+        self.endpoints.set_uuid(uuid=str(uuid))
+        frames_biometry = self.endpoints.get_frames_fraud()[1]
+
+        print(frames_biometry)
+        response = requests.post(
+            url=frames_biometry,
+            headers=self.headers.basic,
+            json=self.payloads.mock_biometry
+        )
+        print(response.status_code, response.json())
+        print('POST biometry is passed')
         assert response.status_code == 200, f"Expected status 200, but got {response.status_code}"
         response.json()
 
@@ -107,7 +157,7 @@ class UniversalFrames:
             headers=self.headers.basic
         )
         print(response.status_code, response.json())
-        print('Данные для биометрий получены')
+        print('Get signatur passed')
         assert response.status_code == 200, f"Expected status 200, but got {response.status_code}"
         response.json()
 
@@ -121,6 +171,6 @@ class UniversalFrames:
             json=self.payloads.signature
         )
         print(response.status_code, response.json())
-        print('Заявка подписана')
+        print('POST signature passed')
         assert response.status_code == 200, f"Expected status 200, but got {response.status_code}"
         response.json()

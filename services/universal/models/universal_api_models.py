@@ -8,7 +8,19 @@ class AuthModel(BaseModel):
     refresh: str
     access: str
 
+
     field_validator("refresh", "access")
+
+    def fields_are_not_empty(cls, value):
+        if value == "" or value is None:
+            return ValueError("Пустое поле")
+        else:
+            return value
+
+class AuthWrongCredsModel(BaseModel):
+    detail: str
+
+    field_validator("detail")
 
     def fields_are_not_empty(cls, value):
         if value == "" or value is None:
