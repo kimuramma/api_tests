@@ -1,27 +1,25 @@
-import os
 class Payloads:
     send_otp = {
-        "iin": f"{os.getenv('IIN')}"
-        ,
-        "mobile_phone": f"{os.getenv('MOBILE_PHONE')}"
+        "iin": "860720400089",
+        "mobile_phone": "+77066078118"
     }
     validate_otp = {
-        "iin": f"{os.getenv('IIN')}",
-        "mobile_phone": f"{os.getenv('MOBILE_PHONE')}",
-        "code": f"{os.getenv('OTP_CODE')}"
+        "iin": "860720400089",
+        "mobile_phone": "+77066078118",
+        "code": "0000"
     }
     apply_lead = {
-        "iin": f"{os.getenv('IIN')}",
-        "mobile_phone": f"{os.getenv('MOBILE_PHONE')}",
-        "product": f"{os.getenv('PRODUCT')}",
-        "partner": f"{os.getenv('PARTNER')}",
-        "channel": f"{os.getenv('CHANNEL')}",
+        "iin": "860720400089",
+        "mobile_phone": "+77066078118",
+        "product": "VILED_CREDIT",
+        "partner": "VILED",
+        "channel": "VILED_WEB",
         "credit_params": {
             "period": 6,
             "principal": 10000
         },
         "additional_information": {
-            "hook_url": "",
+            "hook_url": "https://api-test.viled.kz/finance-gateway/api/ffin/result/success",
             "success_url": "",
             "failure_url": "",
             "reference_id": "",
@@ -30,28 +28,28 @@ class Payloads:
     }
 
     set_reference_id = {
-        "reference_id": "AUTOTEST",
+        "reference_id": "TIGER01",
         "credit_params": {
             "period": 6,
             "principal": 10000
         },
-        "product": f"{os.getenv('PRODUCT')}"
+        "product": "VILED_CREDIT"
     }
     send_redirect_url = {
         "success": True
     }
     auth_for_frames = {
-        "username": f"{os.getenv('USERNAME2')}",
-        "password": f"{os.getenv('USER_PASSWORD')}"
+        "username": "m.zhakeshov@globerce.capital",
+        "password": ",z`1m%Sngci$%E))))"
     }
 
     auth_invalid_username = {
-        "username": f"{os.getenv('INVALID_USERNAME')}",
-        "password": f"{os.getenv('USER_PASSWORD')}"
+        "username": "m.zhakeshov@globerce.capita",
+        "password": ",z`1m%Sngci$%E))))"
     }
     auth_invalid_password = {
-        "username": f"{os.getenv('USERNAME2')}",
-        "password": f"{os.getenv('INVALID_PASSWORD')}"
+        "username": "m.zhakeshov@globerce.capital",
+        "password": "z`1m%Sngci$%E))))"
     }
 
     fraud_payload = {
@@ -73,6 +71,9 @@ class Payloads:
         "extra_move_type": "NO_EXTRA_MOVE"
     }
 
+    mock_biometry = {
+        "mock_biometry": True
+    }
     signature = {
         "sms": "0000"
     }

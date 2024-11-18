@@ -2,13 +2,10 @@ import os
 
 import allure
 import pytest
-import testit
 
 from config.base_test import BaseTest
 
 @allure.epic("Universal API Flow")
-@testit.workItemID(1)
-@testit.externalID("asd")
 @allure.feature("Universal API")
 class TestUniversalAPI(BaseTest):
     uuid = None
@@ -24,7 +21,7 @@ class TestUniversalAPI(BaseTest):
         self.universal_api.set_reference_id(self.uuid)
         self.universal_api.send_redirect_url(self.uuid)
         self.universal_frames.auth_for_frames()
-        self.universal_frames.get_frames_fraud(self.uuid)
+        self.universal_frames.get_frames_api(self.uuid)
         self.universal_frames.get_frames_fraud(self.uuid)
         self.universal_frames.post_frames_fraud(self.uuid)
         self.universal_frames.get_biometry(self.uuid)
@@ -32,8 +29,8 @@ class TestUniversalAPI(BaseTest):
         self.universal_frames.get_signature(self.uuid)
         self.universal_frames.post_signature(self.uuid)
 
-#class TestUniversalAPiAuth(BaseTest):
-#    def test_universal_api_auth(self):
-#        self.universal_api.auth()
-#        self.universal_api.auth_with_invalid_username()
-#        self.universal_api.auth_with_invalid_password()
+class TestUniversalAPiAuth(BaseTest):
+    def test_universal_api_auth(self):
+        self.universal_api.auth()
+        self.universal_api.auth_with_invalid_username()
+        self.universal_api.auth_with_invalid_password()
