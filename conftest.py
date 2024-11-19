@@ -33,3 +33,28 @@ def get_token():
         print("Токен не был получен.")
 
     print(response.status_code, response.json())
+
+
+@pytest.fixture(autouse=True, scope="session")
+def get_user_token():
+    response = requests.post(
+        url=f"{HOST}/ffc-api-auth/",
+        data={
+
+            "password": f"{os.getenv('USER_PASSWORD')}",
+            "username": f"{os.getenv('USERNAME2_FASTCASH')}"
+
+        }
+    )
+
+    assert response.status_code == 200
+
+    token = response.json().get('access')
+    if token:
+        # Записываем токен в файл .env
+        set_key(ENV_PATH, "TOKEN2", token)
+        print(f"TOKEN2 записан в .env: {token}")
+    else:
+        print("Токен2 не был получен.")
+
+    print(response.status_code, response.json())

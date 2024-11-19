@@ -1,15 +1,15 @@
 class Payloads:
     send_otp = {
-        "iin": "860720400089",
+        "iin": "830723301438",
         "mobile_phone": "+77066078118"
     }
     validate_otp = {
-        "iin": "860720400089",
+        "iin": "830723301438",
         "mobile_phone": "+77066078118",
         "code": "0000"
     }
     apply_lead = {
-        "iin": "860720400089",
+        "iin": "830723301438",
         "mobile_phone": "+77066078118",
         "product": "VILED_CREDIT",
         "partner": "VILED",
@@ -40,7 +40,7 @@ class Payloads:
     }
     auth_for_frames = {
         "username": "m.zhakeshov@globerce.capital",
-        "password": ",z`1m%Sngci$%E))))"
+        "password": ",z`1m%Sngci$%E)))))"
     }
 
     auth_invalid_username = {
