@@ -2,10 +2,13 @@ import os
 
 import allure
 import pytest
+import testit
 
 from config.base_test import BaseTest
 
 @allure.epic("Universal API Flow")
+@testit.workItemID(1)
+@testit.externalID("asd")
 @allure.feature("Universal API")
 class TestUniversalAPI(BaseTest):
     uuid = None
