@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # uuid = os.getenv('UUID')
-HOST = "https://fastcash-back.trafficwave.kz"
+HOST = os.getenv('HOST')
 class Endpoints:
 
     send_otp = f"{HOST}/ffc-api-public/universal/general/send-otp"
