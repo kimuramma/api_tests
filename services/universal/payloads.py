@@ -40,7 +40,7 @@ class Payloads:
     }
     auth_for_frames = {
         "username": "m.zhakeshov@globerce.capital",
-        "password": ",z`1m%Sngci$%E))))"
+        "password": ",z`1m%Sngci$%E)))))"
     }
 
     auth_invalid_username = {

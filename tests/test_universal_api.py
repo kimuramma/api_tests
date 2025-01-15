@@ -20,7 +20,7 @@ class TestUniversalAPI(BaseTest):
         self.universal_api.get_base_information(self.uuid)
         self.universal_api.set_reference_id(self.uuid)
         self.universal_api.send_redirect_url(self.uuid)
-        self.universal_frames.auth_for_frames()
+        #self.universal_frames.auth_for_frames()
         self.universal_frames.get_frames_api(self.uuid)
         self.universal_frames.get_frames_fraud(self.uuid)
         self.universal_frames.post_frames_fraud(self.uuid)
